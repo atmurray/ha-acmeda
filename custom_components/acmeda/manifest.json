@@ -1,13 +1,19 @@
 {
   "domain": "acmeda",
   "name": "Rollease Acmeda Automate",
-  "codeowners": ["@atmurray"],
+  "codeowners": [
+    "@atmurray"
+  ],
   "config_flow": true,
   "documentation": "https://www.home-assistant.io/integrations/acmeda",
   "integration_type": "hub",
   "iot_class": "local_push",
-  "loggers": ["aiopulse"],
-  "requirements": ["aiopulse==0.4.4"],
+  "loggers": [
+    "aiopulse"
+  ],
+  "requirements": [
+    "aiopulse==0.4.4"
+  ],
   "issue_tracker": "https://github.com/atmurray/ha-acmeda/issues",
-  "version": "0.0.0"
+  "version": "0.4.4"
 }
