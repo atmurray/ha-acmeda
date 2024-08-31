@@ -1,4 +1,5 @@
 """Base class for Acmeda Roller Blinds."""
+
 from __future__ import annotations
 
 import aiopulse
@@ -61,17 +62,17 @@ class AcmedaBase(entity.Entity):
     def notify_update(self) -> None:
         """Write updated device state information."""
         LOGGER.debug("Device update notification received: %s", self.name)
-        self.async_write_ha_state()
+        self.schedule_update_ha_state()
 
     @property
     def unique_id(self) -> str:
         """Return the unique ID of this roller."""
-        return self.roller.id
+        return self.roller.id  # type: ignore[no-any-return]
 
     @property
     def device_id(self) -> str:
         """Return the ID of this roller."""
-        return self.roller.id
+        return self.roller.id  # type: ignore[no-any-return]
 
     @property
     def device_info(self) -> dr.DeviceInfo:

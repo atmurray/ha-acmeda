@@ -6,14 +6,11 @@
   ],
   "config_flow": true,
   "documentation": "https://www.home-assistant.io/integrations/acmeda",
-  "integration_type": "hub",
   "iot_class": "local_push",
   "loggers": [
     "aiopulse"
   ],
   "requirements": [
     "aiopulse==0.4.5"
-  ],
-  "issue_tracker": "https://github.com/atmurray/ha-acmeda/issues",
-  "version": "0.4.5"
+  ]
 }
