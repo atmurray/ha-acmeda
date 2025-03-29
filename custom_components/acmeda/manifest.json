@@ -11,9 +11,9 @@
     "aiopulse"
   ],
   "requirements": [
-    "aiopulse==0.4.6"
+    "aiopulse==0.4.7"
   ],
   "integration_type": "hub",
   "issue_tracker": "https://github.com/atmurray/ha-acmeda/issues",
-  "version": "0.4.6"
+  "version": "0.4.7"
 }

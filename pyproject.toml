@@ -1,0 +1,45 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ha-acmeda"
+version = "0.4.7"
+authors = [
+  { name="Alan Murray", email="pypi@atmurray.net" },
+]
+description = """
+Asynchronous library to control Rollease Acmeda Automate roller blinds via a version 1 Pulse Hub.
+"""
+readme = "README.md"
+license = {file = 'LICENSE'}
+requires-python = ">=3.4"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/atmurray/ha-acmeda"
+Issues = "https://github.com/atmurray/ha-acmeda/issues"
+
+[tool.bumpver]
+current_version = "0.4.7"
+version_pattern = "MAJOR.MINOR.PATCH"
+commit_message  = "Bump version {old_version} -> {new_version}"
+commit          = true
+tag             = true
+push            = false
+
+[tool.bumpver.file_patterns]
+"pyproject.toml" = [
+    'current_version = "{version}"',
+    'version = "{version}"',
+]
+"custom_components\acmeda\manifest.json" = [
+    "{version}"
+]
