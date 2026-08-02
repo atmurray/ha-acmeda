@@ -40,10 +40,14 @@ class PulseHub:
         self.api = hub = aiopulse.Hub(self.host)
 
         hub.callback_subscribe(self.async_notify_update)
-        self.tasks.append(asyncio.create_task(hub.run()))
 
         LOGGER.debug("Hub setup complete")
         return True
+
+    async def async_start(self) -> None:
+        """Start the hub task."""
+        LOGGER.debug("Hub task started")
+        await self.api.run()
 
     async def async_reset(self) -> bool:
         """Reset this hub to default state."""

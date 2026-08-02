@@ -1,5 +1,7 @@
 """The Rollease Acmeda Automate integration."""
 
+import asyncio
+
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
@@ -28,6 +30,8 @@ async def async_setup_entry(
 
     config_entry.runtime_data = hub
     await hass.config_entries.async_forward_entry_setups(config_entry, PLATFORMS)
+
+    hub.tasks.append(asyncio.create_task(hub.async_start()))
 
     return True
 
