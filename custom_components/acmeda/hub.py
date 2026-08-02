@@ -47,6 +47,7 @@ class PulseHub:
 
     async def async_reset(self) -> bool:
         """Reset this hub to default state."""
+        LOGGER.debug("Resetting hub %s", self.title)
 
         for cleanup_callback in self.cleanup_callbacks:
             cleanup_callback()
@@ -70,6 +71,11 @@ class PulseHub:
         LOGGER.debug("Hub %s updated", update_type.name)
 
         if update_type == aiopulse.UpdateType.rollers:
+            LOGGER.debug(
+                "Hub %s rollers updated, updating devices %s",
+                self.title,
+                self.api.rollers,
+            )
             await update_devices(self.hass, self.config_entry, self.api.rollers)
             self.hass.config_entries.async_update_entry(
                 self.config_entry, title=self.title
