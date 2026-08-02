@@ -29,6 +29,8 @@ async def async_setup_entry(
     config_entry.runtime_data = hub
     await hass.config_entries.async_forward_entry_setups(config_entry, PLATFORMS)
 
+    hub.async_start()
+
     return True
 
 

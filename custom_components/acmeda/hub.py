@@ -6,7 +6,7 @@ from collections.abc import Callable
 import aiopulse
 
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.core import HomeAssistant
+from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.dispatcher import async_dispatcher_send
 
 from .const import ACMEDA_HUB_UPDATE, LOGGER
@@ -40,10 +40,15 @@ class PulseHub:
         self.api = hub = aiopulse.Hub(self.host)
 
         hub.callback_subscribe(self.async_notify_update)
-        self.tasks.append(asyncio.create_task(hub.run()))
 
         LOGGER.debug("Hub setup complete")
         return True
+
+    @callback
+    def async_start(self) -> None:
+        """Start the hub task."""
+        self.tasks.append(asyncio.create_task(self.api.run()))
+        LOGGER.debug("Hub task started")
 
     async def async_reset(self) -> bool:
         """Reset this hub to default state."""
