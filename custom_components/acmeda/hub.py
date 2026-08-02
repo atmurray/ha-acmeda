@@ -1,6 +1,5 @@
 """Code to handle a Pulse Hub."""
 
-import asyncio
 from collections.abc import Callable
 
 import aiopulse
@@ -22,7 +21,6 @@ class PulseHub:
         """Initialize the system."""
         self.config_entry = config_entry
         self.hass = hass
-        self.tasks: list[asyncio.Task[None]] = []
         self.cleanup_callbacks: list[Callable[[], None]] = []
 
     @property
@@ -64,9 +62,6 @@ class PulseHub:
         await self.api.stop()
         del self.api
         self.api = None
-
-        # Wait for any running tasks to complete
-        await asyncio.wait(self.tasks)
 
         return True
 
