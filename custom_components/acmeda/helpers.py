@@ -1,7 +1,5 @@
 """Helper functions for Acmeda Pulse."""
 
-from __future__ import annotations
-
 from typing import TYPE_CHECKING
 
 from aiopulse import Roller
@@ -9,7 +7,7 @@ from aiopulse import Roller
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers import device_registry as dr
-from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
 from .const import DOMAIN, LOGGER
 
@@ -23,7 +21,7 @@ def async_add_acmeda_entities(
     entity_class: type,
     config_entry: AcmedaConfigEntry,
     current: set[int],
-    async_add_entities: AddEntitiesCallback,
+    async_add_entities: AddConfigEntryEntitiesCallback,
 ) -> None:
     """Add any new entities."""
     hub = config_entry.runtime_data
@@ -51,6 +49,10 @@ async def update_devices(
     for api_item in api.values():
         # Update Device name
         device = dev_registry.async_get_device(identifiers={(DOMAIN, api_item.id)})
+        # Requires Home Assistant 2026.8.0:
+        # device = dev_registry.async_get_device_by_identifier(
+        #    (DOMAIN, str(api_item.id)), config_entry.entry_id
+        # )
         if device is not None:
             dev_registry.async_update_device(
                 device.id,
