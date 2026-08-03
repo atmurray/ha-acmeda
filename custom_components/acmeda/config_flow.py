@@ -45,7 +45,7 @@ class AcmedaFlowHandler(ConfigFlow, domain=DOMAIN):
                 hubs = [
                     hub
                     async for hub in aiopulse.Hub.discover()
-                    if hub.id not in already_configured
+                    if hub.id is not None and hub.id not in already_configured
                 ]
 
         if not hubs:
