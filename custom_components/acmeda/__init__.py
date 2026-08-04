@@ -3,8 +3,9 @@
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers import entity_registry as er
+from homeassistant.helpers import device_registry as dr, entity_registry as er
 
+from .const import DOMAIN
 from .hub import PulseHub
 
 CONF_HUBS = "hubs"
@@ -65,3 +66,17 @@ async def async_unload_entry(
         return False
 
     return unload_ok
+
+
+async def async_remove_config_entry_device(
+    hass: HomeAssistant, config_entry: AcmedaConfigEntry, device_entry: dr.DeviceEntry
+) -> bool:
+    """Remove a config entry from a device."""
+    hub = config_entry.runtime_data
+    if hub.api is None:
+        return True
+    return not any(
+        identifier
+        for identifier in device_entry.identifiers
+        if identifier[0] == DOMAIN and int(identifier[1]) in hub.api.rollers
+    )
